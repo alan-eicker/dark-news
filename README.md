@@ -2,6 +2,8 @@
 
 A modern, responsive news aggregator that aggregates stories from the Hacker News API.
 
+I'll admit, this app was completely vibe code for the most part. The goal of this project was not to learn a new coding skill, but rather to test out the capabilities of the new Google Antigravity IDE while sharpening my knoledge of prompt engineering.
+
 ## Features
 
 - **Live News Feed**: Fetches real-time top stories from Hacker News.
