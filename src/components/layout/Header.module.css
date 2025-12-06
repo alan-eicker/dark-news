@@ -1,0 +1,140 @@
+.headerContainer {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background-color: rgba(30, 30, 30, 0.85);
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--color-accent);
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  width: 450px;
+  transition: all 0.2s ease;
+  gap: 0.5rem;
+}
+
+.searchContainer:focus-within {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.searchIcon {
+  color: var(--color-text-secondary);
+  width: 18px;
+  height: 18px;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  width: 100%;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+/* Category Select Styles */
+.categorySelect {
+  appearance: base-select;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  /* &::picker-icon {
+    margin-right: 5px;
+  } */
+}
+
+.categorySelect:hover, .categorySelect:focus {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.categorySelect option {
+  background-color: #1e1e1e; /* Match dropdown background to dark theme */
+  color: var(--color-text);
+}
+
+.breakingNewsBar {
+  background-color: var(--color-element);
+  padding: 0 2rem 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.breakingLabel {
+  background-color: #ff4757;
+  color: white;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  margin-right: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.tickerText {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .mainHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .searchContainer {
+    width: 100%;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .breakingNewsBar {
+    display: none;
+  }
+}
