@@ -1,3 +1,4 @@
+import Footer from './Footer';
 import Header from './Header';
 import styles from './Layout.module.css';
 
@@ -14,6 +15,7 @@ const Layout = ({ children, searchTerm, onSearch, category, onCategoryChange, br
       <main className={styles.mainContent}>
         {children}
       </main>
+      <Footer />
     </div>
   );
 };
