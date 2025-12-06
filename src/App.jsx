@@ -6,9 +6,40 @@ import { useNews } from './hooks/useNews';
 import './App.css';
 
 function App() {
-  const [category, setCategory] = useState('topstories');
+  // Read initial state from URL query parameters
+  const getInitialCategory = () => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('category') || 'topstories';
+  };
+
+  const getInitialSearchTerm = () => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('search') || '';
+  };
+
+  const [category, setCategory] = useState(getInitialCategory);
+  const [searchTerm, setSearchTerm] = useState(getInitialSearchTerm);
   const { news, loading, error, hasMore, loadMore } = useNews(category);
   const observer = useRef();
+
+  // Update URL when category or search term changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    
+    if (category !== 'topstories') {
+      params.set('category', category);
+    }
+    
+    if (searchTerm) {
+      params.set('search', searchTerm);
+    }
+    
+    const newUrl = params.toString() 
+      ? `${window.location.pathname}?${params.toString()}`
+      : window.location.pathname;
+    
+    window.history.replaceState({}, '', newUrl);
+  }, [category, searchTerm]);
 
   const lastElementRef = useCallback(node => {
     if (loading) return;
@@ -22,7 +53,6 @@ function App() {
     
     if (node) observer.current.observe(node);
   }, [loading, hasMore]);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredNews = news.filter(story => 
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
