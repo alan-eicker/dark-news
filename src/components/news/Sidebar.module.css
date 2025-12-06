@@ -5,7 +5,7 @@
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
-  top: 100px; /* Adjust based on header height */
+  top: calc(100px + 2rem);
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
