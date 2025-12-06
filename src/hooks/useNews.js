@@ -1,55 +1,108 @@
 import { useState, useEffect } from 'react';
 
 const BASE_URL = 'https://hacker-news.firebaseio.com/v0';
+const ITEMS_PER_PAGE = 20;
 
 export const useNews = (category = 'topstories') => {
   const [news, setNews] = useState([]);
+  const [storyIds, setStoryIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchIds = async () => {
       try {
         setLoading(true);
-        // 1. Get IDs
+        setNews([]);
+        setPage(0);
+        setHasMore(true);
+        
         const response = await fetch(`${BASE_URL}/${category}.json`);
         const ids = await response.json();
+        setStoryIds(ids || []);
+      } catch (err) {
+        console.error('Error fetching story IDs:', err);
+        setError('Failed to load news stories.');
+        setLoading(false);
+      }
+    };
+
+    fetchIds();
+  }, [category]);
+
+  useEffect(() => {
+    if (storyIds.length === 0) return;
+
+    let ignore = false;
+
+    const fetchStories = async () => {
+      try {
+        setLoading(true);
         
-        // 2. Fetch details for top 100
-        const topIds = ids.slice(0, 100);
+        const start = page * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        const currentIds = storyIds.slice(start, end);
         
-        const storyPromises = topIds.map(id => 
+        if (currentIds.length === 0) {
+          if (!ignore) {
+            setHasMore(false);
+            setLoading(false);
+          }
+          return;
+        }
+
+        const storyPromises = currentIds.map(id => 
           fetch(`${BASE_URL}/item/${id}.json`).then(res => res.json())
         );
         
         const stories = await Promise.all(storyPromises);
         
-        // 3. Map to our format
-        const mappedStories = stories
-          .filter(story => story && story.url) // Only show stories with URLs (ignore generic text posts for now if preferred, or keep them)
-          .map(story => ({
-            id: story.id,
-            title: story.title,
-            url: story.url,
-            author: story.by,
-            score: story.score,
-            time: story.time,
-            domain: new URL(story.url).hostname.replace('www.', ''),
-            // Placeholder image based on ID parity/hash to be deterministic but varied
-            imageUrl: `https://picsum.photos/seed/${story.id}/600/400`
-          }));
+        if (!ignore) {
+          const mappedStories = stories
+            .filter(story => story && story.url)
+            .map(story => ({
+              id: story.id,
+              title: story.title,
+              url: story.url,
+              author: story.by,
+              score: story.score,
+              time: story.time,
+              domain: new URL(story.url).hostname.replace('www.', ''),
+              imageUrl: `https://picsum.photos/seed/${story.id}/600/400`
+            }));
 
-        setNews(mappedStories);
+          setNews(prev => [...prev, ...mappedStories]);
+          
+          if (end >= storyIds.length) {
+            setHasMore(false);
+          }
+        }
       } catch (err) {
-        console.error('Error fetching news:', err);
-        setError('Failed to load news stories.');
+        if (!ignore) {
+          console.error('Error fetching stories:', err);
+          setError('Failed to load stories.');
+        }
       } finally {
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchNews();
-  }, [category]);
+    fetchStories();
 
-  return { news, loading, error };
+    return () => {
+      ignore = true;
+    };
+  }, [storyIds, page]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage(prev => prev + 1);
+    }
+  };
+
+  return { news, loading, error, hasMore, loadMore };
 };

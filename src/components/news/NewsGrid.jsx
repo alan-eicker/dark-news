@@ -8,9 +8,8 @@ const NewsGrid = ({ title, stories }) => {
   const { featuredStory, otherStories } = useMemo(() => {
     if (!stories || stories.length === 0) return { featuredStory: null, otherStories: [] };
     
-    const randomIndex = Math.floor(Math.random() * stories.length);
-    const featured = stories[randomIndex];
-    const others = stories.filter((_, index) => index !== randomIndex);
+    const featured = stories[0];
+    const others = stories.slice(1);
     
     return { featuredStory: featured, otherStories: others };
   }, [stories]);
