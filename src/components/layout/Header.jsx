@@ -39,9 +39,20 @@ const Header = ({ searchTerm, onSearch, category, onCategoryChange, breakingNews
         <div className={styles.breakingLabel}>
           Breaking News
         </div>
-        <div className={styles.tickerText}>
-          {breakingNews ? breakingNews.title : "Loading latest updates..."}
-        </div>
+        {breakingNews ? (
+          <a 
+            href={breakingNews.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.tickerText}
+          >
+            {breakingNews.title}
+          </a>
+        ) : (
+          <div className={styles.tickerText}>
+            Loading latest updates...
+          </div>
+        )}
       </div>
     </header>
   );

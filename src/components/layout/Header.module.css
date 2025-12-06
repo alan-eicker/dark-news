@@ -118,6 +118,13 @@
 
 .tickerText {
   color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.tickerText:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
