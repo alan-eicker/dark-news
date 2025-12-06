@@ -32,6 +32,7 @@ function App() {
       onSearch={setSearchTerm}
       category={category}
       onCategoryChange={setCategory}
+      breakingNews={news.length > 0 ? news[0] : null}
     >
       {loading && news.length === 0 && <div style={{textAlign: 'center', padding: '2rem'}}>Loading latest stories...</div>}
       

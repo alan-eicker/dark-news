@@ -1,7 +1,7 @@
 import { Search, Globe } from 'lucide-react';
 import styles from './Header.module.css';
 
-const Header = ({ searchTerm, onSearch, category, onCategoryChange }) => {
+const Header = ({ searchTerm, onSearch, category, onCategoryChange, breakingNews }) => {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.mainHeader}>
@@ -40,7 +40,7 @@ const Header = ({ searchTerm, onSearch, category, onCategoryChange }) => {
           Breaking News
         </div>
         <div className={styles.tickerText}>
-          Musk's SpaceX: Starship lands safely... then explodes (Mock Ticker)
+          {breakingNews ? breakingNews.title : "Loading latest updates..."}
         </div>
       </div>
     </header>

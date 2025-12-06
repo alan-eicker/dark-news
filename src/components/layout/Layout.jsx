@@ -1,7 +1,7 @@
 import Header from './Header';
 import styles from './Layout.module.css';
 
-const Layout = ({ children, searchTerm, onSearch, category, onCategoryChange }) => {
+const Layout = ({ children, searchTerm, onSearch, category, onCategoryChange, breakingNews }) => {
   return (
     <div className={styles.layout}>
       <Header 
@@ -9,6 +9,7 @@ const Layout = ({ children, searchTerm, onSearch, category, onCategoryChange }) 
         onSearch={onSearch} 
         category={category}
         onCategoryChange={onCategoryChange}
+        breakingNews={breakingNews}
       />
       <main className={styles.mainContent}>
         {children}
