@@ -1,5 +1,5 @@
 import styles from './NewsCard.module.css';
-import { ExternalLink, ArrowUpCircle } from 'lucide-react';
+import { ExternalLink, ArrowUpCircle, Share2 } from 'lucide-react';
 
 const NewsCard = ({ news }) => {
   // Mock category for visual flair
@@ -9,6 +9,25 @@ const NewsCard = ({ news }) => {
   const timeAgo = (unixTime) => {
     const date = new Date(unixTime * 1000);
     return date.toLocaleDateString();
+  };
+
+  const handleShare = async (e) => {
+    e.preventDefault(); // Prevent clicking parent link if any
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: news.title,
+          text: `Check out this story: ${news.title}`,
+          url: news.url
+        });
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback
+      navigator.clipboard.writeText(news.url);
+      alert('Link copied to clipboard!');
+    }
   };
 
   return (
@@ -26,9 +45,14 @@ const NewsCard = ({ news }) => {
         
         <div className={styles.footer}>
           <span className={styles.author}>by {news.author}</span>
-          <div className={styles.score}>
-            <ArrowUpCircle size={14} color="var(--color-accent)" />
-            {news.score}
+          <div className={styles.meta}>
+            <div className={styles.score}>
+              <ArrowUpCircle size={14} color="var(--color-accent)" />
+              {news.score}
+            </div>
+            <button className={styles.shareButton} onClick={handleShare} title="Share story">
+              <Share2 size={16} />
+            </button>
           </div>
         </div>
       </div>

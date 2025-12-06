@@ -1,5 +1,5 @@
 import styles from './FeaturedNews.module.css';
-import { ArrowUpCircle, Clock, ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowUpCircle, Clock, ExternalLink, ArrowRight, Share2 } from 'lucide-react';
 
 const FeaturedNews = ({ news }) => {
   if (!news) return null;
@@ -7,6 +7,23 @@ const FeaturedNews = ({ news }) => {
   const timeAgo = (unixTime) => {
     const date = new Date(unixTime * 1000);
     return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: news.title,
+          text: `Check out this story: ${news.title}`,
+          url: news.url
+        });
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      navigator.clipboard.writeText(news.url);
+      alert('Link copied to clipboard!');
+    }
   };
 
   return (
@@ -32,9 +49,14 @@ const FeaturedNews = ({ news }) => {
           </div>
         </div>
 
-        <a href={news.url} target="_blank" rel="noopener noreferrer" className={styles.cta}>
-          Read Full Story <ArrowRight size={18} />
-        </a>
+        <div className={styles.actions}>
+          <a href={news.url} target="_blank" rel="noopener noreferrer" className={styles.cta}>
+            Read Full Story <ArrowRight size={18} />
+          </a>
+          <button className={styles.shareBtn} onClick={handleShare} title="Share story">
+            <Share2 size={24} />
+          </button>
+        </div>
       </div>
     </article>
   );

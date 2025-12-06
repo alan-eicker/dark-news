@@ -1,0 +1,36 @@
+.sidebar {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 100px; /* Adjust based on header height */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: static;
+    margin-top: 2rem;
+  }
+}

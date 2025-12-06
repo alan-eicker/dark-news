@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Layout from './components/layout/Layout';
 import NewsGrid from './components/news/NewsGrid';
+import Sidebar from './components/news/Sidebar';
 import { useNews } from './hooks/useNews';
+import './App.css';
 
 function App() {
   const [category, setCategory] = useState('topstories');
@@ -39,27 +41,31 @@ function App() {
       {error && <div style={{textAlign: 'center', color: 'red', padding: '2rem'}}>{error}</div>}
       
       {!error && (
-        <>
-          <NewsGrid 
-            title={searchTerm ? `Search Results: "${searchTerm}"` : "Latest Stories"} 
-            stories={filteredNews} 
-          />
+        <div className="content-wrapper">
+          <main>
+            <NewsGrid 
+              title={searchTerm ? `Search Results: "${searchTerm}"` : "Latest Stories"} 
+              stories={filteredNews} 
+            />
+            
+            {/* Intersection observer sentinel */}
+            {!searchTerm && <div ref={lastElementRef} style={{ height: '20px', margin: '20px 0' }} />}
+            
+            {loading && news.length > 0 && (
+              <div style={{textAlign: 'center', padding: '1rem', color: '#666'}}>
+                Loading more stories...
+              </div>
+            )}
+            
+            {!hasMore && news.length > 0 && !searchTerm && (
+               <div style={{textAlign: 'center', padding: '2rem', color: '#666'}}>
+                  You've reached the end!
+               </div>
+            )}
+          </main>
           
-          {/* Intersection observer sentinel */}
-          {!searchTerm && <div ref={lastElementRef} style={{ height: '20px', margin: '20px 0' }} />}
-          
-          {loading && news.length > 0 && (
-            <div style={{textAlign: 'center', padding: '1rem', color: '#666'}}>
-              Loading more stories...
-            </div>
-          )}
-          
-          {!hasMore && news.length > 0 && !searchTerm && (
-             <div style={{textAlign: 'center', padding: '2rem', color: '#666'}}>
-                You've reached the end!
-             </div>
-          )}
-        </>
+          <Sidebar stories={news} />
+        </div>
       )}
       
       {!loading && !error && filteredNews.length === 0 && news.length > 0 && (
