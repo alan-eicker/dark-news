@@ -28,6 +28,19 @@ function App() {
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Format category name for display
+  const formatCategory = (cat) => {
+    const categoryMap = {
+      'topstories': 'Top Stories',
+      'newstories': 'New Stories',
+      'beststories': 'Best Stories',
+      'askstories': 'Ask HN',
+      'showstories': 'Show HN',
+      'jobstories': 'Jobs'
+    };
+    return categoryMap[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+  };
+
   return (
     <Layout 
       searchTerm={searchTerm} 
@@ -44,7 +57,7 @@ function App() {
         <div className="content-wrapper">
           <main>
             <NewsGrid 
-              title={searchTerm ? `Search Results: "${searchTerm}"` : "Latest Stories"} 
+              title={searchTerm ? `Search Results: "${searchTerm}"` : formatCategory(category)} 
               stories={filteredNews} 
             />
             
