@@ -59,7 +59,7 @@
 .featureCard:hover {
   transform: translateY(-4px);
   border-color: var(--color-accent);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 8px 24px rgba(255, 71, 87, 0.2);
 }
 
 .featureCard h3 {
@@ -93,7 +93,7 @@
 .pricingCard:hover {
   border-color: var(--color-accent);
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 12px 32px rgba(255, 71, 87, 0.3);
 }
 
 .pricingHeader {
@@ -195,9 +195,9 @@
 }
 
 .subscribeBtn:hover {
-  background: #7c3aed;
+  color: var(--white);
+  background-color: var(--color-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
 }
 
 .subscribeBtn:active {
