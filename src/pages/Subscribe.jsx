@@ -1,11 +1,15 @@
 import { Check } from 'lucide-react';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 import styles from './Subscribe.module.css';
 
 const Subscribe = () => {
   return (
-    <div className={styles.container}>
+    <>
+      <Header simplified={true} />
+      <div className={styles.container}>
       <div className={styles.hero}>
-        <h1 className={styles.title}>The DarkNews experience. Always on.</h1>
+        <h1 className={styles.title}>The Dark News experience. Always on.</h1>
         <p className={styles.subtitle}>Stay informed with unlimited access to breaking news and in-depth reporting</p>
       </div>
 
@@ -97,11 +101,13 @@ const Subscribe = () => {
         <section className={styles.devices}>
           <h2 className={styles.sectionTitle}>Explore your subscription on your favorite device</h2>
           <p className={styles.devicesText}>
-            Access DarkNews on desktop, mobile, and tablet. Your subscription works seamlessly across all platforms.
+            Access Dark News on desktop, mobile, and tablet. Your subscription works seamlessly across all platforms.
           </p>
         </section>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
