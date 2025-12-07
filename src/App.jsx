@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import NewsGrid from './components/news/NewsGrid';
-import Sidebar from './components/news/Sidebar';
+import Home from './pages/Home';
+import Subscribe from './pages/Subscribe';
 import { useNews } from './hooks/useNews';
 import './App.css';
 
@@ -19,8 +20,7 @@ function App() {
 
   const [category, setCategory] = useState(getInitialCategory);
   const [searchTerm, setSearchTerm] = useState(getInitialSearchTerm);
-  const { news, loading, error, hasMore, loadMore } = useNews(category);
-  const observer = useRef();
+  const { news } = useNews(category);
 
   // Update URL when category or search term changes
   useEffect(() => {
@@ -41,82 +41,21 @@ function App() {
     window.history.replaceState({}, '', newUrl);
   }, [category, searchTerm]);
 
-  const lastElementRef = useCallback(node => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        loadMore();
-      }
-    });
-    
-    if (node) observer.current.observe(node);
-  }, [loading, hasMore]);
-
-  const filteredNews = news.filter(story => 
-    story.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Format category name for display
-  const formatCategory = (cat) => {
-    const categoryMap = {
-      'topstories': 'Top Stories',
-      'newstories': 'New Stories',
-      'beststories': 'Best Stories',
-      'askstories': 'Ask HN',
-      'showstories': 'Show HN',
-      'jobstories': 'Jobs'
-    };
-    return categoryMap[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
-  };
-
   return (
-    <Layout 
-      searchTerm={searchTerm} 
-      onSearch={setSearchTerm}
-      category={category}
-      onCategoryChange={setCategory}
-      breakingNews={news.length > 0 ? news[0] : null}
-    >
-      {loading && news.length === 0 && <div style={{textAlign: 'center', padding: '2rem'}}>Loading latest stories...</div>}
-      
-      {error && <div style={{textAlign: 'center', color: 'red', padding: '2rem'}}>{error}</div>}
-      
-      {!error && (
-        <div className="content-wrapper">
-          <main>
-            <NewsGrid 
-              title={searchTerm ? `Search Results: "${searchTerm}"` : formatCategory(category)} 
-              stories={filteredNews} 
-            />
-            
-            {/* Intersection observer sentinel */}
-            {!searchTerm && <div ref={lastElementRef} style={{ height: '20px', margin: '20px 0' }} />}
-            
-            {loading && news.length > 0 && (
-              <div style={{textAlign: 'center', padding: '1rem', color: '#666'}}>
-                Loading more stories...
-              </div>
-            )}
-            
-            {!hasMore && news.length > 0 && !searchTerm && (
-               <div style={{textAlign: 'center', padding: '2rem', color: '#666'}}>
-                  You've reached the end!
-               </div>
-            )}
-          </main>
-          
-          <Sidebar stories={news} />
-        </div>
-      )}
-      
-      {!loading && !error && filteredNews.length === 0 && news.length > 0 && (
-        <div style={{textAlign: 'center', padding: '4rem', color: '#666'}}>
-          No stories found matching your search.
-        </div>
-      )}
-    </Layout>
+    <Routes>
+      <Route path="/" element={
+        <Layout 
+          searchTerm={searchTerm} 
+          onSearch={setSearchTerm}
+          category={category}
+          onCategoryChange={setCategory}
+          breakingNews={news.length > 0 ? news[0] : null}
+        >
+          <Home searchTerm={searchTerm} category={category} />
+        </Layout>
+      } />
+      <Route path="/subscribe" element={<Subscribe />} />
+    </Routes>
   );
 }
 

@@ -1,0 +1,240 @@
+.container {
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); */
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #6366f1 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  opacity: 0.95;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--color-text);
+}
+
+.features {
+  margin-bottom: 5rem;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+}
+
+.featureCard h3 {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.featureCard p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.pricingCard {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 2.5rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.pricingCard:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
+}
+
+.pricingHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pricingHeader h3 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.priceAmount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.pricePeriod {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+}
+
+.savings {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.benefits {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.benefits li svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emailInput {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.emailInput:focus {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.emailInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.subscribeBtn {
+  padding: 1rem 2rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.subscribeBtn:hover {
+  background: #7c3aed;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+}
+
+.subscribeBtn:active {
+  transform: translateY(0);
+}
+
+.devices {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.devicesText {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .priceAmount {
+    font-size: 2.5rem;
+  }
+}
