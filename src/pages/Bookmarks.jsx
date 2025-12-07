@@ -1,9 +1,14 @@
 import { useBookmarks } from '../hooks/useBookmarks.jsx';
-import NewsGrid from '../components/news/NewsGrid';
+import { X } from 'lucide-react';
 import styles from './Bookmarks.module.css';
 
 const Bookmarks = () => {
-  const { bookmarks } = useBookmarks();
+  const { bookmarks, toggleBookmark } = useBookmarks();
+
+  const handleRemove = (e, bookmark) => {
+    e.preventDefault();
+    toggleBookmark(bookmark);
+  };
 
   return (
     <div className={styles.container}>
@@ -15,10 +20,18 @@ const Bookmarks = () => {
       {bookmarks.length > 0 ? (
         <ul className={styles.bookmarksList}>
           {bookmarks.map((bookmark) => (
-            <li key={bookmark.id}>
-              <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
+            <li key={bookmark.id} className={styles.bookmarkItem}>
+              <a href={bookmark.url} target="_blank" rel="noopener noreferrer" className={styles.bookmarkLink}>
                 {bookmark.title}
               </a>
+              <button 
+                onClick={(e) => handleRemove(e, bookmark)}
+                className={styles.removeButton}
+                aria-label="Remove bookmark"
+                title="Remove bookmark"
+              >
+                <X size={22} />
+              </button>
             </li>
           ))}
         </ul>

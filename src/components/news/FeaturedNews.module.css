@@ -123,10 +123,8 @@
 }
 
 .actionBtn:hover {
-  background: white;
-  color: var(--color-bg-primary);
+  background: rgba(255,255,255,0.4);
   transform: translateY(-2px);
-  border-color: white;
 }
 
 .actionBtn.bookmarked {
