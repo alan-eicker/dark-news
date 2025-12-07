@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { User, Settings, Mail, BookOpen, LogOut } from 'lucide-react';
+import { User, Settings, Mail, BookOpen, LogOut, Bookmark } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import styles from './UserProfile.module.css';
 
 const UserProfile = () => {
@@ -43,6 +44,11 @@ const UserProfile = () => {
             <Mail size={18} />
             <span>Newsletters</span>
           </button>
+          
+          <Link to="/bookmarks" className={styles.menuItem} onClick={() => setIsOpen(false)}>
+            <Bookmark size={18} />
+            <span>Bookmarks</span>
+          </Link>
           
           <button className={styles.menuItem}>
             <BookOpen size={18} />

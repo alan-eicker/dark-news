@@ -1,7 +1,11 @@
 import styles from './NewsCard.module.css';
-import { ExternalLink, ArrowUpCircle, Share2 } from 'lucide-react';
+import { ExternalLink, ArrowUpCircle, Share2, Bookmark } from 'lucide-react';
+import { useBookmarks } from '../../hooks/useBookmarks.jsx';
 
 const NewsCard = ({ news }) => {
+  const { toggleBookmark, isBookmarked } = useBookmarks();
+  const bookmarked = isBookmarked(news.id);
+  
   // Mock category for visual flair
   const category = "Technology"; 
 
@@ -30,6 +34,11 @@ const NewsCard = ({ news }) => {
     }
   };
 
+  const handleBookmark = (e) => {
+    e.preventDefault();
+    toggleBookmark(news);
+  };
+
   return (
     <article className={styles.card}>
       <a href={news.url} target="_blank" rel="noopener noreferrer" className={styles.imageContainer}>
@@ -50,7 +59,14 @@ const NewsCard = ({ news }) => {
               <ArrowUpCircle size={14} color="var(--color-accent)" />
               {news.score}
             </div>
-            <button className={styles.shareButton} onClick={handleShare} title="Share story">
+            <button 
+              className={`${styles.iconButton} ${bookmarked ? styles.bookmarked : ''}`} 
+              onClick={handleBookmark} 
+              title={bookmarked ? "Remove bookmark" : "Bookmark story"}
+            >
+              <Bookmark size={16} fill={bookmarked ? "currentColor" : "none"} />
+            </button>
+            <button className={styles.iconButton} onClick={handleShare} title="Share story">
               <Share2 size={16} />
             </button>
           </div>

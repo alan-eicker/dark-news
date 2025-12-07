@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Subscribe from './pages/Subscribe';
+import Bookmarks from './pages/Bookmarks';
 import { useNews } from './hooks/useNews';
 import './App.css';
 
@@ -55,6 +56,17 @@ function App() {
         </Layout>
       } />
       <Route path="/subscribe" element={<Subscribe />} />
+      <Route path="/bookmarks" element={
+        <Layout 
+          searchTerm={searchTerm} 
+          onSearch={setSearchTerm}
+          category={category}
+          onCategoryChange={setCategory}
+          breakingNews={news.length > 0 ? news[0] : null}
+        >
+          <Bookmarks />
+        </Layout>
+      } />
     </Routes>
   );
 }

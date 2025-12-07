@@ -1,7 +1,11 @@
 import styles from './FeaturedNews.module.css';
-import { ArrowUpCircle, Clock, ExternalLink, ArrowRight, Share2 } from 'lucide-react';
+import { ArrowUpCircle, Clock, ExternalLink, ArrowRight, Share2, Bookmark } from 'lucide-react';
+import { useBookmarks } from '../../hooks/useBookmarks.jsx';
 
 const FeaturedNews = ({ news }) => {
+  const { toggleBookmark, isBookmarked } = useBookmarks();
+  const bookmarked = isBookmarked(news?.id);
+  
   if (!news) return null;
 
   const timeAgo = (unixTime) => {
@@ -24,6 +28,10 @@ const FeaturedNews = ({ news }) => {
       navigator.clipboard.writeText(news.url);
       alert('Link copied to clipboard!');
     }
+  };
+
+  const handleBookmark = () => {
+    toggleBookmark(news);
   };
 
   return (
@@ -54,7 +62,14 @@ const FeaturedNews = ({ news }) => {
             <a href={news.url} target="_blank" rel="noopener noreferrer" className={styles.cta}>
               Read Full Story <ArrowRight size={18} />
             </a>
-            <button className={styles.shareBtn} onClick={handleShare} title="Share story">
+            <button 
+              className={`${styles.actionBtn} ${bookmarked ? styles.bookmarked : ''}`} 
+              onClick={handleBookmark} 
+              title={bookmarked ? "Remove bookmark" : "Bookmark story"}
+            >
+              <Bookmark size={24} fill={bookmarked ? "currentColor" : "none"} />
+            </button>
+            <button className={styles.actionBtn} onClick={handleShare} title="Share story">
               <Share2 size={24} />
             </button>
           </div>
