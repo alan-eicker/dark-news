@@ -38,11 +38,12 @@ const Header = ({ searchTerm, onSearch, category, onCategoryChange, breakingNews
               />
             </div>
             
-            <Link to="/subscribe" className={styles.subscribeBtn}>
-              Subscribe
-            </Link>
-            
-            <UserProfile />
+            <div className={styles.userActions}>
+              <Link to="/subscribe" className={styles.subscribeBtn}>
+                Subscribe
+              </Link>
+              <UserProfile />
+            </div>
           </div>
         )}
       </div>
