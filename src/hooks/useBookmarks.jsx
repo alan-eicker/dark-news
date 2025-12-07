@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 
 const BookmarksContext = createContext();
 
@@ -6,6 +6,7 @@ const STORAGE_KEY = 'darkNewsBookmarks';
 
 export const BookmarksProvider = ({ children }) => {
   const [bookmarks, setBookmarks] = useState([]);
+  const isInitialMount = useRef(true);
 
   // Load bookmarks from localStorage on mount
   useEffect(() => {
@@ -19,8 +20,13 @@ export const BookmarksProvider = ({ children }) => {
     }
   }, []);
 
-  // Save bookmarks to localStorage whenever they change
+  // Save bookmarks to localStorage whenever they change (skip initial mount)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
     } catch (error) {
