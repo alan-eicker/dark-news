@@ -1,5 +1,6 @@
 import { Search, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import UserProfile from './UserProfile';
 import styles from './Header.module.css';
 
 const Header = ({ searchTerm, onSearch, category, onCategoryChange, breakingNews, simplified = false }) => {
@@ -40,6 +41,8 @@ const Header = ({ searchTerm, onSearch, category, onCategoryChange, breakingNews
             <Link to="/subscribe" className={styles.subscribeBtn}>
               Subscribe
             </Link>
+            
+            <UserProfile />
           </div>
         )}
       </div>
