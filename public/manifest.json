@@ -1,0 +1,26 @@
+{
+  "name": "Dark News",
+  "short_name": "Dark News",
+  "description": "A modern news aggregator with dark theme",
+  "start_url": "/dark-news/",
+  "display": "standalone",
+  "background_color": "#0a0e27",
+  "theme_color": "#0a0e27",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/dark-news/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/dark-news/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["news", "productivity"],
+  "screenshots": []
+}

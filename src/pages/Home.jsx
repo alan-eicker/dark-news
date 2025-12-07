@@ -41,7 +41,7 @@ const Home = ({ searchTerm, category }) => {
     <>
       {loading && news.length === 0 && <div style={{textAlign: 'center', padding: '2rem'}}>Loading latest stories...</div>}
       
-      {error && <div style={{textAlign: 'center', color: 'red', padding: '2rem'}}>{error}</div>}
+      {error && <div style={{textAlign: 'center', color: '#ff4757', padding: '2rem'}}>{error}</div>}
       
       {!error && (
         <div className="content-wrapper">
