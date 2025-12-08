@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem;
   margin: 0 auto;
 }
 
@@ -143,7 +143,7 @@
   border-bottom: 1px solid var(--color-border);
 
   @media (max-width: 768px) {
-    margin-top: 1rem;
+    display: none;
   }
 }
 
@@ -191,6 +191,10 @@
   }
 
   .logo {
-    margin-right: auto;
+    margin: 0 auto;
+
+    @media (min-width: 768px) {
+      margin-right: auto;
+    }
   }
 }
